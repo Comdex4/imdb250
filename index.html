@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMDb 250 Roulette</title>
+  <meta name="description" content="Randomly pick a movie from the IMDb Top 250 and track the ones you've seen.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>IMDb 250 Roulette</h1>
+    <div class="progress" aria-live="polite">
+      <div class="progress-text"><strong id="seen-count">0</strong> of <span id="total-count">250</span> seen</div>
+      <div class="bar" role="progressbar" aria-label="Movies seen" aria-valuemin="0" aria-valuemax="250" aria-valuenow="0">
+        <div class="bar-fill" id="bar-fill"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="picker">
+      <div class="card" id="card" aria-live="polite">
+        <p class="card-empty" id="card-empty">Press the button to pick a movie.</p>
+        <div class="card-body" id="card-body" hidden>
+          <span class="rank" id="card-rank"></span>
+          <h2 id="card-title"></h2>
+          <p class="year" id="card-year"></p>
+          <p class="status" id="card-status"></p>
+          <div class="card-actions">
+            <button class="btn primary" id="mark-seen">✓ I've seen it</button>
+            <a class="btn ghost" id="imdb-link" target="_blank" rel="noopener">View on IMDb ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn big" id="pick">🎲 Pick a random movie</button>
+        <label class="toggle">
+          <input type="checkbox" id="unseen-only" checked>
+          Only pick movies I haven't seen
+        </label>
+      </div>
+    </section>
+
+    <section class="list-section">
+      <div class="list-head">
+        <h2>The list</h2>
+        <div class="filters">
+          <input type="search" id="search" placeholder="Search titles…" aria-label="Search titles">
+          <div class="seg" role="group" aria-label="Filter">
+            <button data-filter="all" class="active">All</button>
+            <button data-filter="unseen">Unseen</button>
+            <button data-filter="seen">Seen</button>
+          </div>
+        </div>
+      </div>
+      <ol class="movie-list" id="movie-list"></ol>
+    </section>
+
+    <section class="data">
+      <h2>Your data</h2>
+      <p>Your seen list is saved in this browser. Export a backup to move it to another device.</p>
+      <div class="data-actions">
+        <button class="btn ghost" id="export">Export backup</button>
+        <label class="btn ghost file">
+          Import backup
+          <input type="file" id="import" accept="application/json,.json" hidden>
+        </label>
+        <button class="btn danger" id="reset">Reset all</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Not affiliated with IMDb. List is a snapshot of the IMDb Top 250.</footer>
+
+  <script src="movies.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
